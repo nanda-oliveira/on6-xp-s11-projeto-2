@@ -8,14 +8,13 @@ const selectAllData = () => {
 }
 
 //selectDataById
-const selectDataById = (request, response) =>{
-    const id = request.params.id
-    const maravilhosaID = maravilhosas.find(allData => allData.id == id)
+const selectDataById = (identificador) =>{
+    const maravilhosaID = allData.find(item => allData.id === identificador)
     return maravilhosaID
 }
 
 //insertData
-const insertData = (request, response) => {
+const insertData = (body) => {
     const { name, photo, subtitle, about, phrase, history, addedBy } = request.body
     const novaMaravilhosa = {
         id: id,
@@ -26,7 +25,7 @@ const insertData = (request, response) => {
         phrase: phrase,
         history: history,
         addedBy: addedby
-    }
+    }    
     return
 }
 //updateData
@@ -40,6 +39,8 @@ const updateData = ()=>{
     })
     return
 }
+
+
 //deleteData
 const deleteData = ()=> {
     const { id } = request.params

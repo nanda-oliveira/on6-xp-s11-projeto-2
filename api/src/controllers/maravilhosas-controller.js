@@ -25,6 +25,8 @@ const getMaravilhosaById = (request, response) => {
 
 const addMaravilhosa = (request, response) => {
     
+    
+
     model.insertData().push(addMaravilhosa)
     response.status(201).send(addMaravilhosa)
 
