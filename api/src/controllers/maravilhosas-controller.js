@@ -1,21 +1,21 @@
 const { request } = require("express")
-const maravilhosas = require("../models/maravilhosas-models")
+const { selectAllData, updateData } = require("../models/maravilhosas-models")
+const model = require("../models/maravilhosas-models")
 
 //Nomes dos métodos para implementação:
 
 //getMaravilhosas GET
 
 const getMaravilhosas = (request, response) => {
-    response.status(200).send(maravilhosas)
+    response.status(200).send(model.selectAllData())
 }
 
 //getMaravilhosaById GET
 
 const getMaravilhosaById = (request, response) => {
-    const id = request.params.id
-    const maravilhosaID = maravilhosas.find(maravilhosa => maravilhosa.id == id)
-    if (maravilhosaID) {
-        response.status(200).send(maravilhosaID)
+   
+    if (model.selectDataById()) {
+        response.status(200).send(model.selectDataById())
     } else {
         response.status(404).send("Maravilhosa nao encontrada")
     }
@@ -24,50 +24,24 @@ const getMaravilhosaById = (request, response) => {
 //addMaravilhosa POST
 
 const addMaravilhosa = (request, response) => {
-    const { name, photo, subtitle, about, phrase, history, addedBy } = request.body
-    const novaMaravilhosa = {
-        id: id,
-        name: name,
-        photo: photo,
-        subtitle: subtitle,
-        about: about,
-        phrase: phrase,
-        history: history,
-        addedBy: addedby
-    }
-
-    maravilhosas.push(addMaravilhosa)
+    
+    model.insertData().push(addMaravilhosa)
     response.status(201).send(addMaravilhosa)
 
 }
 //updateMaravilhosa 
 const updateMaravilhosa = (request, response) => {
-    const maravilhosaAtualizada = request.body
-    const id = parseInt(request.params.id)
-    const maravilhosaParaAtualizar = maravilhosas.find(maravilhosa => maravilhosa.id == id)
-
-    Object.keys(maravilhosaAtualizada).forEach((chave) => {
-        maravilhosaParaAtualizar[chave] = maravilhosaAtualizada[chave]
-    })
-
-    response.status(200).send(maravilhosaParaAtualizar)
+    
+    response.status(200).send(model.updateData())
+}
 
 
-    //deleteMaravilhosa
+//deleteMaravilhosa
 
     const deleteMaravilhosa = (request, response) => {
-        const { id } = request.params
-        let filtarMaravilhosa = maravilhosas.filter(maravilhosa => {
-            maravilhosas.id === id
-        })[0]
+        response.send(model.deleteData())
 
-        const index = maravilhosas.indexOf(filtarMaravilhosa)
-
-        maravilhosas.splice(index, 1)
-
-        response.send(maravilhosas)
-
-    }}
+    }
 
     module.exports = {
         getMaravilhosas,
